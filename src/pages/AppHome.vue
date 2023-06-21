@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios';
 
-import HouseCard from './components/HouseCard.vue';
+import HouseCard from '../components/HouseCard.vue';
 
 export default{
   name: 'AppHome',
@@ -21,15 +21,15 @@ export default{
   },  
 
   created() {
-    this.getHouses(this.apiUrl);
+    this.getHouses();
   },
 
   methods:{
-    getHouses(apiUrl){
-      axios.get(apiUrl).then(res =>{
+    getHouses(){
+      axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
         console.log(res);
         
-        this.houses = res.data.results.data;
+        this.houses = res.data.results;
       });
     }
   },
