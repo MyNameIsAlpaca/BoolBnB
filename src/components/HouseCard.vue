@@ -28,7 +28,7 @@ export default {
 
 <template>
     <div class="card" style="width: 18rem;">
-            <img :src="house.thumbnail" class="card-img-top" alt="Immagine di copertina">
+            <img :src="'http://127.0.0.1:8000/storage/' + house.thumbnail"  class="card-img-top" alt="Immagine di copertina">
             <div class="card-body">
               <h5 class="card-title">{{house.title}}</h5>
               <p class="card-text">{{house.description}}</p>
