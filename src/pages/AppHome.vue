@@ -1,22 +1,22 @@
 <script>
-import AppMain from './pages/AppHome.vue';
+import AppNavSearch from '../partials/AppNavSearch.vue';
 export default {
-  name: 'App',
+  name: 'AppHome',
   data() {
     return {
 
     }
   },
   components: {
-    AppMain,
+    AppNavSearch,
   }
 }
 </script>
 
 <template>
-  <AppMain></AppMain>
+  
 </template>
 
-<style>
+<style scoped lang="scss">
 
 </style>

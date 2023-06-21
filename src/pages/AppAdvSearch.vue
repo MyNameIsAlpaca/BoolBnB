@@ -1,22 +1,20 @@
 <script>
-import AppMain from './pages/AppHome.vue';
 export default {
-  name: 'App',
+  name: 'AppAdvSearch',
   data() {
     return {
 
     }
   },
   components: {
-    AppMain,
   }
 }
 </script>
 
 <template>
-  <AppMain></AppMain>
+  <h1>Benvenuto alla ricerca avanzata</h1>
 </template>
 
-<style>
+<style scoped lang="scss">
 
 </style>
