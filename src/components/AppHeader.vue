@@ -108,8 +108,7 @@ export default{
             </li>
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'AppTwo'}">AppTwo</router-link>
-            </li>
-              
+            </li> 
           </ul>
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser">
@@ -122,6 +121,14 @@ export default{
             </select>
             <router-link :to="{ name: 'search' }"><button class="btn btn-outline-success ms-2" type="submit" @click="searchApi()" @onkeyup="searchApi()">Cerca</button></router-link>
           </form>
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <router-link class="nav-link" aria-current="page" :to="{name: 'home'}">Login</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{name: 'search'}">Registrati</router-link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
