@@ -101,8 +101,6 @@ export default{
   </div> 
 </template>
 
-<style scoped lang="scss">
-  .container {
-    padding-top: 100px;
-  }
+<style lang="scss">
+  
 </style>
