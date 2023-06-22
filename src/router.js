@@ -5,6 +5,7 @@ import AppHome from './pages/AppHome.vue';
 import AppOne from './pages/AppOne.vue';
 import AppTwo from './pages/AppTwo.vue';
 import NotFound from './pages/NotFound.vue';
+import AppShow from './pages/AppShow.vue';
 
 const router = createRouter({
 
@@ -39,7 +40,12 @@ const router = createRouter({
       meta: {
         title: '404'
       }
-    }
+    }, 
+    {
+      path:'/show/:id',
+      name:'show',
+      component: AppShow,
+    },
     
   ],
 
