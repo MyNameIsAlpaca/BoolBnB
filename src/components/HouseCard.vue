@@ -42,6 +42,8 @@ export default {
         </li>
     </ul>
 
+    <router-link :to="{name:'show', params:{id: house.id}}" class="btn btn-warning">Dettaglio</router-link>
+
     
     <!-- <div class="card-body d-flex gap-3 align-items-center">
       <div class="container d-flex align-items-center gap-2">
