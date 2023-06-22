@@ -35,7 +35,6 @@ export default {
     <div v-show="this.store.searchUser.length > 0 && this.store.searchHouse.length ==0">
       Non ho trovato risultati
     </div>
-    <router-link :to="{ name: 'home' }"><button><i class="fa-solid fa-arrow-left"></i></button></router-link>
   </div> 
 </template>
 

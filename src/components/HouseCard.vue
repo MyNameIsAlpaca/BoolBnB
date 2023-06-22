@@ -37,9 +37,11 @@ export default {
       <li class="list-group-item">N° stanze: {{house.rooms}}</li>
       <li class="list-group-item">N° bagni: {{house.bathrooms}}</li>
       <li class="list-group-item">m&sup2;: {{house.square_mt}}</li>
-        <li v-for="singleService in house.services" class="list-group-item">Servizi: 
+      <li class="list-group-item">Servizi:
+        <div v-for="singleService in house.services" >
             <i :class="singleService.icon"></i> {{singleService.name}}
-        </li>
+        </div>
+      </li>
     </ul>
 
     

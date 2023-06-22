@@ -93,23 +93,7 @@ export default{
 </script>
 
 <template>
-  <div class="text-center pt-3 pb-2">
-    <div class="d-flex justify-content-center">
-      <input type="text" placeholder="Cerca in un luogo" v-model="this.store.searchUser">
-      <div v-show="this.store.searchUser.length > 0">
-        <router-link :to="{ name: 'search' }"><button @click="searchApi()">Cerca</button></router-link>
-      </div>
-    </div>
-    <div>
-      <label for="distanceSet">Scegli una distanza:</label>
-      <select v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
-        <option selected value="20">20km</option>
-        <option value="40">40km</option>
-        <option value="100">60km</option>
-      </select>
-    </div>
-  </div>
-  <h1 class="text-center">In evidenza: </h1>
+  <h1 class="container text-center">In evidenza: </h1>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">
     <div v-for="house in this.store.houses" class="col-4 mb-5">
       <HouseCard :house="house"></HouseCard>
@@ -118,5 +102,7 @@ export default{
 </template>
 
 <style scoped lang="scss">
-
+  .container {
+    padding-top: 100px;
+  }
 </style>
