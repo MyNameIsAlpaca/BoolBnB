@@ -3,10 +3,14 @@ import {reactive} from 'vue';
 export const store = reactive({
 
   houses: [],
+
+  housesHome: [],
       
   searchHouse: [],
 
   filterHouse: [],
+
+  definitiveHouse: [],
 
   searchUser: '',
 

@@ -16,7 +16,7 @@ export default{
     return{
       apiUrl: 'http://127.0.0.1:8000/api/houses',
       store,
-      housesHome: [],
+      
     }
   },
 
@@ -28,7 +28,7 @@ export default{
     getHouses(){
       axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
         
-        this.housesHome = res.data.results;
+        this.store.housesHome = res.data.results;
       });
     },
   },
@@ -43,7 +43,7 @@ export default{
 <template>
   <h1 class="container text-center">In evidenza: </h1>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">
-    <div v-for="house in this.housesHome" class="col-4 mb-5">
+    <div v-for="house in this.store.housesHome" class="col-4 mb-5">
       <HouseCard :house="house"></HouseCard>
     </div>
   </div> 
