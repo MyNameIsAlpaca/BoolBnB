@@ -6,6 +6,8 @@ export const store = reactive({
       
   searchHouse: [],
 
+  filterHouse: [],
+
   searchUser: '',
 
   searchLat: '',
@@ -17,5 +19,7 @@ export const store = reactive({
   distanceSet: 20,
 
   isSearch: false,
+
+  services: [],
     
 });

@@ -40,7 +40,7 @@ export default {
       <li class="list-group-item">Servizi:
         <div v-for="singleService in house.services" >
             <i :class="singleService.icon"></i> {{singleService.name}}
-        </div>
+          </div>
       </li>
     </ul>
 
