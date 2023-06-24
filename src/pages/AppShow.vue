@@ -6,7 +6,7 @@ export default {
 
     data() {
         return {
-            successMessage: '',
+            responseMessage: '',
              house: {},
              houseId: '',
              isLoading: true,
@@ -40,12 +40,12 @@ export default {
             console.log(this.form)
             axios.post('http://127.0.0.1:8000/api/messages', this.form).then(
                 response => {
-                    console.log(response);
+                    this.responseMessage = 'Successo';
                 }
             ).catch(error => {
-                console.log(error)
+                this.responseMessage = 'Fallito';
             }).finally(() => {
-                this.successMessage = 'Messaggio inviato con successo!'
+                
             });
         },
         getHouse() {
@@ -90,7 +90,7 @@ export default {
                <i :class="service.icon"></i> - {{ service.name }} <br>
             </span>
             <div class="message container w-50">
-                <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.successMessage == ''">
+                <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.responseMessage == ''|| this.responseMessage == 'Fallito'">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Aggiungi un email</label>
                         <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@mail.com" v-model="form.email">
@@ -105,7 +105,9 @@ export default {
                     </div>
                     <button type="submit" class="btn btn-secondary d-flex align-self-center">Invia</button>
                 </form>
-                <h2 v-else class="text-center alert alert-success">{{ this.successMessage }}</h2>
+                <h2 v-else class="text-center alert alert-success">Messaggio inviato con successo!</h2>
+                
+                <h2 v-show="this.responseMessage == 'Fallito'" class="text-center alert alert-danger mt-3">Invio fallito!</h2>
             </div>
             
         </div>
