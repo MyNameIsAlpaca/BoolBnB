@@ -6,11 +6,19 @@ export default {
 
     data() {
         return {
+            successMessage: '',
              house: {},
              houseId: '',
              isLoading: true,
              houseFound: false,
              imgUrl: 'http://127.0.0.1:8000/',
+             form: {
+                email: '',
+                name: '',
+                text: '',
+                read: 0,
+                house_id: this.$route.params.id,
+             }
         }
     },
 
@@ -28,6 +36,18 @@ export default {
     },
 
     methods: {
+        submitForm(){
+            console.log(this.form)
+            axios.post('http://127.0.0.1:8000/api/messages', this.form).then(
+                response => {
+                    console.log(response);
+                }
+            ).catch(error => {
+                console.log(error)
+            }).finally(() => {
+                this.successMessage = 'Messaggio inviato con successo!'
+            });
+        },
         getHouse() {
             axios.get('http://127.0.0.1:8000/api/houses/' + this.houseId).then(res => {
                 if (res.data.success) {
@@ -53,7 +73,7 @@ export default {
         </div>
     </div>
     <div v-else>
-        <div v-if="houseFound">
+        <div class="container" v-if="houseFound">
             <div class="my-img-container-show">
                 <img :src="houseImg" alt="img">
             </div>
@@ -64,11 +84,29 @@ export default {
             <span>N° posti letto: {{ house.beds}}</span><br>
             <span>N° bagni: {{ house.bathrooms }}</span><br>
             <span>Indirizzo: {{ house.street}} , {{house.house_number}} - {{house.city}}</span>
-            <hr>
+            <br>
             <span>Servizi: </span>
             <span v-for="service in house.services">
                <i :class="service.icon"></i> - {{ service.name }} <br>
             </span>
+            <div class="message container w-50">
+                <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.successMessage == ''">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Aggiungi un email</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@mail.com" v-model="form.email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Aggiungi un Nome</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Aggiungi un nome" v-model="form.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Aggiungi un Messaggio</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="form.text"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-secondary d-flex align-self-center">Invia</button>
+                </form>
+                <h2 v-else class="text-center alert alert-success">{{ this.successMessage }}</h2>
+            </div>
             
         </div>
         <div v-else>
