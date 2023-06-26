@@ -18,17 +18,35 @@ export default {
   methods: {
     getHouses(){
       this.notFound = false
-      axios.get('http://127.0.0.1:8000/api/houses', {
-        params: {
-          filtri: this.store.checkFilter.join(',')
-        }
-      }).then(res =>{      
+
+      if(this.store.checkFilter.length > 0) {
+
         
-        this.store.filterHouse = res.data.results;
-        
-        this.chooseArray()
-        
-      });
+        axios.get('http://127.0.0.1:8000/api/houses', {
+          params: {
+            filtri: this.store.checkFilter.join(',')
+          }
+        }).then(res =>{    
+          
+          
+          if(res.data.results.length > 0) {
+            this.store.filterHouse = res.data.results;
+            
+            this.chooseArray()
+          } else{
+            console.log('ciao')
+            this.notFound = true
+          }
+    
+        });
+      } else if(this.store.checkFilter.length == 0 && this.store.searchHouse.length == 0){
+        axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
+          
+          this.store.definitiveHouse = res.data.results;
+        });
+      } else{
+        this.store.definitiveHouse = this.store.searchHouse
+      }
     },
     chooseArray() {
       if (this.store.searchHouse.length == 0 && this.store.filterHouse.length == 0){
@@ -45,6 +63,9 @@ export default {
             this.store.definitiveHouse.push(foundHouse);
           } else{
           }
+        }
+        if(this.store.definitiveHouse.length == 0){
+          this.notFound = true;
         }
         this.store.filterHouse = []
       }else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length == 0){
@@ -65,7 +86,18 @@ export default {
   },
   created() {
     this.getServices();
+    
   },
+
+  mounted(){
+    if(this.store.firstTime){
+      axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
+          
+          this.store.definitiveHouse = res.data.results;
+        });
+    }
+  }
+
 };
 </script>
 
@@ -77,8 +109,9 @@ export default {
     </div>
   </div>
   <h1 class="text-center">Benvenuto alla ricerca avanzata</h1>
+  <div class="text-center alert alert-warning" v-show="this.store.notFoundSearch">La tua ricerca non ha prodotto risultati</div>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">
-    <div v-if="this.notFound == false" v-for="house in this.store.definitiveHouse" class="col-4 mb-5">
+    <div v-show="this.store.notFoundSearch == false" v-if="this.notFound == false" v-for="house in this.store.definitiveHouse" class="col-4 mb-5">
       <HouseCard :house="house"></HouseCard>
     </div>
     <div v-else>

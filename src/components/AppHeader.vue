@@ -16,6 +16,7 @@ export default{
       apiUrl: 'http://127.0.0.1:8000/api/houses',
       store,
       baseSearch: [],
+      
     }
   },
 
@@ -34,9 +35,9 @@ export default{
   methods:{
     resetSearch(){
       this.store.searchUser = '';
-      this.store.definitiveHouse = [];
       this.store.filterHouse = [];
       this.store.searchHouse = [];
+      this.store.definitiveHouse = this.store.housesHome;
     },
     chooseArray() {
 
@@ -67,6 +68,10 @@ export default{
       }
     },
     searchApi(){
+
+      this.store.firstTime = false;
+
+      this.store.notFoundSearch = false;
       
       this.store.definitiveHouse = [];
 
@@ -77,15 +82,18 @@ export default{
       this.store.checkFilter = [];
       
       if(this.store.searchUser != '') {
-        axios.get('https://api.tomtom.com/search/2/search/' + this.store.searchUser + '.json?countrySet=IT&key=5dkGa9b2PDdCXlAFGvkpEYG83DUj9jgv').then(res =>{
-          console.log(res)
-          if(res.data.results[0] == null){
-            this.store.searchLat = '';
-            this.store.searchLong = '';
+        axios.get('https://api.tomtom.com/search/2/search/' + this.store.searchUser + '.json?countrySet=IT&key=apjfXb9AwAOHRXxZDlUdnzwdqLaYSvFZ').then(res =>{
+          if(res.data.results.length > 0){
+            if(res.data.results[0] == null){
+              this.store.searchLat = '';
+              this.store.searchLong = '';
+            }else{
+              this.store.searchLat = res.data.results[0].position.lat;
+              this.store.searchLong = res.data.results[0].position.lon;
+              this.filterHouse()
+            }
           }else{
-            this.store.searchLat = res.data.results[0].position.lat;
-            this.store.searchLong = res.data.results[0].position.lon;
-            this.filterHouse()
+            this.store.notFoundSearch = true
           }
           
         }).catch(function (error) {console.log(error)});
@@ -120,7 +128,12 @@ export default{
           this.store.searchHouse.push(this.baseSearch[i]);
         }
       }
-      this.chooseArray()
+      if(this.store.searchHouse.length == 0){
+        this.store.notFoundSearch = true
+      }else{
+
+        this.chooseArray()
+      }
       
     },
   },
@@ -140,14 +153,14 @@ export default{
               <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}" @click="this.resetSearch()">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{name: 'search'}" @click="this.resetSearch()">Ricerca Avanzata</router-link>
+              <router-link class="nav-link" :to="{name: 'search'}" @click="this.resetSearch()"> Ricerca Avanzata</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'AppTwo'}" @click="this.resetSearch()">AppTwo</router-link>
             </li> 
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser">
+            <input class="form-control me-2" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" >
             <select  v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
               <option selected value="20">20km</option>
               <option value="40">40km</option>
