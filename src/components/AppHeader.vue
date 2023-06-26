@@ -42,13 +42,12 @@ export default{
 
       this.store.definitiveHouse = [];
       
-      if (this.store.searchHouse == 0 && this.store.filterHouse == 0){
+      if (this.store.searchHouse.length == 0 && this.store.filterHouse.length == 0){
         axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
-          
           this.store.definitiveHouse = res.data.results;
         });
       }
-      else if(this.store.searchHouse != 0 && this.store.filterHouse != 0){
+      else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length != 0){
         this.store.definitiveHouse = [];
         for (const house of this.store.searchHouse) {
           const foundHouse = this.store.filterHouse.find(item => item.id === house.id);
@@ -68,6 +67,10 @@ export default{
       }
     },
     searchApi(){
+      
+      this.store.definitiveHouse = [];
+
+      this.store.filterHouse = [];
     
       this.store.searchHouse = [];
       
@@ -75,6 +78,7 @@ export default{
       
       if(this.store.searchUser != '') {
         axios.get('https://api.tomtom.com/search/2/search/' + this.store.searchUser + '.json?countrySet=IT&key=5dkGa9b2PDdCXlAFGvkpEYG83DUj9jgv').then(res =>{
+          console.log(res)
           if(res.data.results[0] == null){
             this.store.searchLat = '';
             this.store.searchLong = '';
@@ -143,7 +147,7 @@ export default{
             </li> 
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" @keyup.enter="searchApi()">
+            <input class="form-control me-2" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser">
             <select  v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
               <option selected value="20">20km</option>
               <option value="40">40km</option>
