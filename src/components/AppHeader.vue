@@ -138,7 +138,10 @@ export default{
             </select>
             <router-link :to="{ name: 'search' }"><button class="btn btn-outline-success ms-2" type="submit" @click="searchApi()">Cerca</button></router-link>
           </form>
+
+          <!-- questa è la sezione del login del nostro front end che deve cambiare per essere uguale al badk end -->
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <!-- qui va un if con se sei loggato allora devi nascondere questi <li> e mostrare il dropdown del backend -->
             <li class="nav-item">
               <a class="nav-link" href="http://127.0.0.1:8000/login/">Login</a>
             </li>
@@ -146,6 +149,8 @@ export default{
               <a class="nav-link" href="http://127.0.0.1:8000/register">Registrati</a>
             </li>
           </ul>
+
+
         </div>
       </div>
     </nav>
