@@ -9,7 +9,6 @@ export default {
   data() {
     return {
       store,
-      checkFilter: [],
       notFound: false,
     };
   },
@@ -18,33 +17,23 @@ export default {
   },
   methods: {
     getHouses(){
-      axios.get('http://127.0.0.1:8000/api/houses', {
-       params: {
-        filtri: this.checkFilter.join(',')
-       }
-     }).then(res =>{
-      if(res.data.results.length == 0){
-        if(this.checkFilter.length == 0){
-          this.store.filterHouse = []
-        }else{
-          this.notFound = true,
-
-          this.store.filterHouse = []
-        }
-        
-      }else{
-
       this.notFound = false
-
+      axios.get('http://127.0.0.1:8000/api/houses', {
+        params: {
+          filtri: this.store.checkFilter.join(',')
+        }
+      }).then(res =>{      
+        
         this.store.filterHouse = res.data.results;
-      }
-
+        
+        this.chooseArray()
+        
       });
     },
     chooseArray() {
       if (this.store.searchHouse == 0 && this.store.filterHouse == 0){
         axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
-        
+          
           this.store.definitiveHouse = res.data.results;
         });
       }
@@ -57,10 +46,14 @@ export default {
           } else{
           }
         }
+        this.store.filterHouse = []
       }else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length == 0){
+        this.store.definitiveHouse = []
         this.store.definitiveHouse = this.store.searchHouse
       } else if(this.store.filterHouse.length != 0 && this.store.searchHouse.length == 0){
+        this.store.definitiveHouse = []
         this.store.definitiveHouse = this.store.filterHouse
+        this.store.filterHouse = []
       }
     },
     
@@ -72,14 +65,6 @@ export default {
   },
   created() {
     this.getServices();
-    if(this.store.definitiveHouse.length > 0){
-      console.log('ciao')
-    }else{
-      axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
-          
-          this.store.definitiveHouse = res.data.results;
-        });
-    }
   },
 };
 </script>
@@ -87,10 +72,9 @@ export default {
 <template>
   <div class="d-flex justify-content-center gap-4 py-3">
     <div v-for="service in this.store.services">
-      <input type="checkbox" :value="service.id" v-model="checkFilter" @change="getHouses()">
+      <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
       <label class="ps-1" for="vehicle1">{{ service.name }}</label>
     </div>
-    <button @click="this.chooseArray()">clicca</button>
   </div>
   <h1 class="text-center">Benvenuto alla ricerca avanzata</h1>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">

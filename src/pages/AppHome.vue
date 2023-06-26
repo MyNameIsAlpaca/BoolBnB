@@ -25,7 +25,7 @@ export default{
   },  
   
   methods:{
-    getHouses(){
+    getHousesHome(){
       axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
         
         this.store.housesHome = res.data.results;
@@ -34,7 +34,7 @@ export default{
   },
 
   created() {
-    this.getHouses();
+    this.getHousesHome();
   },
 
 }

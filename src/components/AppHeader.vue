@@ -15,6 +15,7 @@ export default{
     return{
       apiUrl: 'http://127.0.0.1:8000/api/houses',
       store,
+      baseSearch: [],
     }
   },
 
@@ -22,16 +23,25 @@ export default{
     HouseCard,
   },  
 
-  created() {
-    this.getHouses();
+  mounted(){
+    this.baseSearch = [];
+    axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
+        
+        this.baseSearch = res.data.results;
+      });
   },
 
   methods:{
     resetSearch(){
-      this.store.searchUser = ''
+      this.store.searchUser = '';
+      this.store.definitiveHouse = [];
+      this.store.filterHouse = [];
+      this.store.searchHouse = [];
     },
     chooseArray() {
 
+      this.store.definitiveHouse = [];
+      
       if (this.store.searchHouse == 0 && this.store.filterHouse == 0){
         axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
           
@@ -44,28 +54,30 @@ export default{
           const foundHouse = this.store.filterHouse.find(item => item.id === house.id);
           if (foundHouse) {
             this.store.definitiveHouse.push(foundHouse);
+          } else{
           }
         }
+        this.store.filterHouse = []
       }else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length == 0){
+        this.store.definitiveHouse = []
         this.store.definitiveHouse = this.store.searchHouse
       } else if(this.store.filterHouse.length != 0 && this.store.searchHouse.length == 0){
+        this.store.definitiveHouse = []
         this.store.definitiveHouse = this.store.filterHouse
+        this.store.filterHouse = []
       }
     },
-    getHouses(){
-      axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
-        
-        this.store.houses = res.data.results;
-      });
-    },
     searchApi(){
-      
+    
       this.store.searchHouse = [];
+      
+      this.store.checkFilter = [];
       
       if(this.store.searchUser != '') {
         axios.get('https://api.tomtom.com/search/2/search/' + this.store.searchUser + '.json?countrySet=IT&key=5dkGa9b2PDdCXlAFGvkpEYG83DUj9jgv').then(res =>{
           if(res.data.results[0] == null){
-            
+            this.store.searchLat = '';
+            this.store.searchLong = '';
           }else{
             this.store.searchLat = res.data.results[0].position.lat;
             this.store.searchLong = res.data.results[0].position.lon;
@@ -96,15 +108,16 @@ export default{
     },
     filterHouse(){
       
-      for(let i = 0;i < this.store.houses.length; i++ ){
+      for(let i = 0;i < this.baseSearch.length; i++ ){
         
-        this.getDistanceFromLatLonInKm(this.store.houses[i].latitude, this.store.houses[i].longitude, this.store.searchLat, this.store.searchLong)
+        this.getDistanceFromLatLonInKm(this.baseSearch[i].latitude, this.baseSearch[i].longitude, this.store.searchLat, this.store.searchLong)
         
         if(this.store.distanceSearch < this.store.distanceSet){
-          this.store.searchHouse.push(this.store.houses[i]);
+          this.store.searchHouse.push(this.baseSearch[i]);
         }
       }
       this.chooseArray()
+      
     },
   },
 }
@@ -136,7 +149,7 @@ export default{
               <option value="40">40km</option>
               <option value="100">60km</option>
             </select>
-            <router-link :to="{ name: 'search' }"><button class="btn btn-outline-success ms-2" type="submit" @click="searchApi()">Cerca</button></router-link>
+            <router-link :to="{ name: 'search' }"><button  class="btn btn-outline-success ms-2" type="submit" @click="searchApi()">Cerca</button></router-link>
           </form>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">

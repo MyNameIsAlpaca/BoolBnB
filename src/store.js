@@ -14,6 +14,8 @@ export const store = reactive({
 
   searchUser: '',
 
+  checkFilter: [],
+
   searchLat: '',
 
   searchLong: '',
