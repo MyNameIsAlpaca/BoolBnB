@@ -27,36 +27,67 @@ export default {
 </script>
 
 <template>
-  <div class="card" style="width: 18rem;">
-    <img :src="'http://127.0.0.1:8000/storage/' + house.thumbnail"  class="card-img-top" alt="Immagine di copertina">
-    <div class="card-body">
-      <h5 class="card-title">{{house.title}}</h5>
-      <p class="card-text">{{house.description}}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">N° stanze: {{house.rooms}}</li>
-      <li class="list-group-item">N° bagni: {{house.bathrooms}}</li>
-      <li class="list-group-item">m&sup2;: {{house.square_mt}}</li>
-      <li class="list-group-item">Servizi:
-        <div v-for="singleService in house.services" >
-            <i :class="singleService.icon"></i> {{singleService.name}}
-          </div>
-      </li>
-    </ul>
-
-    <router-link :to="{name:'show', params:{id: house.id}}" class="btn btn-warning">Dettaglio</router-link>
-
-    
-    <!-- <div class="card-body d-flex gap-3 align-items-center">
-      <div class="container d-flex align-items-center gap-2">
-        <button class="btn btn-secondary"><a href="{{route('houses.show', $house)}}" class="link-light">Guarda la tua casa</a></button> 
-      </div>
-      <form action="{{ route('visibility.index', $house) }}" method="POST">
-        @csrf
-        <div class="form-check form-switch">
-          <input name="visibility" class="form-check-input submitCheckbox" type="checkbox" role="switch" {{  $house->visibility ? "checked" : "" }}>
-        </div>
-      </form>
-    </div> -->
+  <div class="my_card">
+    <p><span>  
+      <img :src="'http://127.0.0.1:8000/storage/' + house.thumbnail"  class="card-img-top" alt="Immagine di copertina">
+    </span></p>
+    <p><span>
+      <img :src="'http://127.0.0.1:8000/storage/' + house.thumbnail"  class="card-img-top" alt="Immagine di copertina">
+    </span></p>
+    <p><span>
+      <img :src="'http://127.0.0.1:8000/storage/' + house.thumbnail"  class="card-img-top" alt="Immagine di copertina">
+    </span></p>
   </div>
+  <div class="d-flex flex-column py-2">
+    <strong>{{house.title}}</strong>
+    <em>{{ house.street}} , {{house.house_number}} - {{house.city}}</em>
+  </div>
+  <router-link :to="{name:'show', params:{id: house.id}}" class="btn btn-primary">Dettaglio</router-link>
 </template>
+
+<style scoped>
+
+/* @use "../scss/variables" as *; */
+.my_card {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  padding-bottom: 3px;
+}
+
+.my_card p {
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .5s;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my_card p:hover {
+  flex: 4;
+}
+
+.my_card p span {
+  width: 100%;
+  height: 100%;
+  min-width: 300px;
+  min-height: 300px;
+  transform: rotate(0);
+  transition: all .5s;
+}
+
+.my_card p:hover span {
+  transform: rotate(0);
+}
+
+.my_card img{
+  height: 100%;
+  object-fit: cover;
+}
+
+</style>

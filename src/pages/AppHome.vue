@@ -41,12 +41,14 @@ export default{
 </script>
 
 <template>
-  <h1 class="container text-center">In evidenza: </h1>
-  <div class="text-center w-75 mx-auto d-flex justify-content-between row">
-    <div v-for="house in this.store.housesHome" class="col-4 mb-5">
-      <HouseCard :house="house"></HouseCard>
+  <div class="py-4 px-4">
+    <h1 class="text-start">In evidenza</h1>
+    <div class="w-75 mx-auto d-flex justify-content-between row">
+      <div v-for="house in this.store.housesHome" class="col-4 mb-5">
+        <HouseCard :house="house"></HouseCard>
+      </div>
     </div>
-  </div> 
+  </div>
 </template>
 
 <style lang="scss">
