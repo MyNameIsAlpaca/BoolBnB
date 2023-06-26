@@ -41,6 +41,7 @@ export default{
 </script>
 
 <template>
+  
   <h1 class="container text-center">In evidenza: </h1>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">
     <div v-for="house in this.store.housesHome" class="col-4 mb-5">

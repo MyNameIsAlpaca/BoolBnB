@@ -31,13 +31,13 @@ export default {
       });
     },
     chooseArray() {
-      if (this.store.searchHouse == 0 && this.store.filterHouse == 0){
+      if (this.store.searchHouse.length == 0 && this.store.filterHouse.length == 0){
         axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
           
           this.store.definitiveHouse = res.data.results;
         });
       }
-      else if(this.store.searchHouse != 0 && this.store.filterHouse != 0){
+      else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length != 0){
         this.store.definitiveHouse = [];
         for (const house of this.store.searchHouse) {
           const foundHouse = this.store.filterHouse.find(item => item.id === house.id);
