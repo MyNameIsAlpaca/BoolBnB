@@ -150,13 +150,6 @@ export default{
       
     },
 
-    /* checkAuthentication() {
-      axios.get("http://127.0.0.1:8000/authenticated").then(response => {
-        this.authenticated = response.data.authenticated;
-       console.log(response);
-       console.log(this.authenticated);
-      })
-    }, */
   },
 }
 </script>

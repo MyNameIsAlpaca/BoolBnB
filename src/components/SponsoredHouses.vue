@@ -1,5 +1,5 @@
 <script>
-import {store} from '../store.js';
+/* import {store} from '../store.js';
 
 import axios from 'axios';
 
@@ -56,12 +56,12 @@ export default defineComponent({
     this.getHousesHome();
   },
 
-})
+}) */
 </script>
 
 <template>
   <!-- inizio carousel case sponsorizzate -->
-  <div class="container w-75 mx-auto my-2">
+<!--   <div class="container w-75 mx-auto my-2">
 
   
     <Carousel v-bind="settings" :breakpoints="breakpoints">
@@ -83,7 +83,7 @@ export default defineComponent({
         </Navigation>
       </template>
     </Carousel>
-  </div>
+  </div> -->
 
   <!-- fine carousel case sponsorizzate -->
 
