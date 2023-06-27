@@ -226,7 +226,7 @@ nav {
     @include border();
     padding: 10px 30px;
     background-color: $secondary;
-    color: white;
+    color: $text;
     font-weight: bold;
     letter-spacing: 3px;
     transition: .3s;
@@ -237,8 +237,8 @@ nav {
 
   .my_btn:hover {
     background-color: $secondary;
-    box-shadow: 0 0 0 5px white;
-    color: #fff;
+    box-shadow: 0 0 0 5px $accent;
+    color: $accent;
   }
 
 

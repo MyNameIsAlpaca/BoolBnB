@@ -138,6 +138,7 @@ export default {
 
     .btn:hover {
       background: $secondary;
+      color: $text;
     }
 
     .btn > svg {

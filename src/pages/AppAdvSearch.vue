@@ -2,8 +2,8 @@
 import { store } from '../store.js';
 import axios from 'axios';
 
-import HouseCard from '../components/HouseCard.vue';
 
+import ServiceHouses from '../components/ServiceHouses.vue';
 export default {
   name: 'AppAdvSearch',
   data() {
@@ -13,8 +13,8 @@ export default {
     };
   },
   components: {
-    HouseCard,
-  },
+    ServiceHouses
+},
   methods: {
     getHouses(){
       this.notFound = false
@@ -105,17 +105,22 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex justify-content-center gap-4 py-3">
-    <div v-for="service in this.store.services">
-      <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
-      <label class="ps-1" for="vehicle1">{{ service.name }}</label>
+  <h1 class="text-center my-3">Ricerca Avanzata</h1>
+  <hr>
+  <div id="services" class="my-4">
+    <h5 class="text-center">Seleziona un servizio</h5>
+    <div class="my_services my-4">
+      <div v-for="service in this.store.services">
+        <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
+        <label class="ps-1" for="vehicle1">{{ service.name }}</label>
+      </div>
     </div>
+
   </div>
-  <h1 class="text-center">Benvenuto alla ricerca avanzata</h1>
   <div class="text-center alert alert-warning" v-show="this.store.notFoundSearch">La tua ricerca non ha prodotto risultati</div>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">
     <div v-show="this.store.notFoundSearch == false" v-if="this.notFound == false" v-for="house in this.store.definitiveHouse" class="col-4 mb-5">
-      <HouseCard :house="house"></HouseCard>
+      <ServiceHouses :house="house"></ServiceHouses>
     </div>
     <div v-else>
       <h4 class="alert alert-danger">Non ci sono case con questi filtri!</h4>
@@ -125,4 +130,24 @@ export default {
 
 <style scoped lang="scss">
 
+
+@import "../scss/variables";
+@import "../scss/mixins";
+
+
+  .my_services{
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 10px 10px;
+
+    border-radius: 30px;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+
+    background-color: $secondary;
+    
+  }
 </style>
