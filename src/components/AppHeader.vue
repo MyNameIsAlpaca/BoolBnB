@@ -165,7 +165,7 @@ export default{
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container-fluid">
         <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}" @click="this.resetSearch()">
-          <img class="logo" src="public\logochiaro.png" alt="logo">
+          <img class="logo" src="public\logo-bool.png" alt="logo">
         </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -219,7 +219,7 @@ nav{
   background-color: $primary;
   color: white;
   .logo{
-    width: 100px;
+    width: 50px;
   }
 
   .my_search{
