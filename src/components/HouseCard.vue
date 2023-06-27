@@ -33,6 +33,9 @@ export default {
     <div class="d-flex flex-column py-2">
       <strong>{{house.title}}</strong>
       <em>{{ house.street}} , {{house.house_number}} - {{house.city}}</em>
+      <div v-show="house.distance != null">
+        <span>{{ house.distance }} km di distanza.</span>
+      </div>
     </div>
     <div class="my_show_btn">
       <router-link :to="{name:'show', params:{id: house.id}}" class="btn">

@@ -32,7 +32,7 @@ export default{
         this.baseSearch = res.data.results;
     });
 
-    this.checkAuthentication();
+    
   },
 
   methods:{
@@ -43,22 +43,23 @@ export default{
       this.store.definitiveHouse = this.store.housesHome;
     },
     chooseArray() {
-
-      this.store.definitiveHouse = [];
-      
       if (this.store.searchHouse.length == 0 && this.store.filterHouse.length == 0){
         axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
+          
           this.store.definitiveHouse = res.data.results;
         });
       }
       else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length != 0){
         this.store.definitiveHouse = [];
-        for (const house of this.store.searchHouse) {
-          const foundHouse = this.store.filterHouse.find(item => item.id === house.id);
+        for (const house of this.store.filterHouse) {
+          const foundHouse = this.store.searchHouse.find(item => item.id === house.id);
           if (foundHouse) {
             this.store.definitiveHouse.push(foundHouse);
           } else{
           }
+        }
+        if(this.store.definitiveHouse.length == 0){
+          this.notFound = true;
         }
         this.store.filterHouse = []
       }else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length == 0){
@@ -69,6 +70,9 @@ export default{
         this.store.definitiveHouse = this.store.filterHouse
         this.store.filterHouse = []
       }
+      console.log(this.store.definitiveHouse)
+      
+      this.store.definitiveHouse.sort((a, b) => a.distance - b.distance);
     },
     searchApi(){
 
@@ -128,9 +132,15 @@ export default{
         this.getDistanceFromLatLonInKm(this.baseSearch[i].latitude, this.baseSearch[i].longitude, this.store.searchLat, this.store.searchLong)
         
         if(this.store.distanceSearch < this.store.distanceSet){
+
+          this.baseSearch[i].distance = Math.round(this.store.distanceSearch)
+
+          
           this.store.searchHouse.push(this.baseSearch[i]);
+          
         }
       }
+      
       if(this.store.searchHouse.length == 0){
         this.store.notFoundSearch = true
       }else{
@@ -140,13 +150,13 @@ export default{
       
     },
 
-    checkAuthentication() {
+    /* checkAuthentication() {
       axios.get("http://127.0.0.1:8000/authenticated").then(response => {
         this.authenticated = response.data.authenticated;
        console.log(response);
        console.log(this.authenticated);
       })
-    },
+    }, */
   },
 }
 </script>
