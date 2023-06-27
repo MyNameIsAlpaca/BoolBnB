@@ -16,6 +16,7 @@ export default{
       apiUrl: 'http://127.0.0.1:8000/api/houses',
       store,
       baseSearch: [],
+      authenticated: true,
       
     }
   },
@@ -29,7 +30,9 @@ export default{
     axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
         
         this.baseSearch = res.data.results;
-      });
+    });
+
+    this.checkAuthentication();
   },
 
   methods:{
@@ -136,6 +139,14 @@ export default{
       }
       
     },
+
+    checkAuthentication() {
+      axios.get("http://127.0.0.1:8000/authenticated").then(response => {
+        this.authenticated = response.data.authenticated;
+       console.log(response);
+       console.log(this.authenticated);
+      })
+    },
   },
 }
 </script>
@@ -174,10 +185,11 @@ export default{
           <!-- questa è la sezione del login del nostro front end che deve cambiare per essere uguale al badk end -->
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <!-- qui va un if con se sei loggato allora devi nascondere questi <li> e mostrare il dropdown del backend -->
-            <li class="nav-item">
-              <a class="nav-link" href="http://127.0.0.1:8000/login/">Login</a>
+              
+            <li  v-if="this.authenticated == false" class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/login/">Nuovo</a>
             </li>
-            <li>
+            <li v-if="this.authenticated == true">
               <a class="nav-link" href="http://127.0.0.1:8000/register">Registrati</a>
             </li>
           </ul>
