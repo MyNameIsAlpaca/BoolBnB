@@ -57,8 +57,8 @@ export default {
       }
       else if(this.store.searchHouse.length != 0 && this.store.filterHouse.length != 0){
         this.store.definitiveHouse = [];
-        for (const house of this.store.searchHouse) {
-          const foundHouse = this.store.filterHouse.find(item => item.id === house.id);
+        for (const house of this.store.filterHouse) {
+          const foundHouse = this.store.searchHouse.find(item => item.id === house.id);
           if (foundHouse) {
             this.store.definitiveHouse.push(foundHouse);
           } else{
@@ -76,6 +76,9 @@ export default {
         this.store.definitiveHouse = this.store.filterHouse
         this.store.filterHouse = []
       }
+      console.log(this.store.definitiveHouse)
+      
+      this.store.definitiveHouse.sort((a, b) => a.distance - b.distance);
     },
     
     getServices() {

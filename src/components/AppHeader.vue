@@ -32,7 +32,7 @@ export default {
       this.baseSearch = res.data.results;
     });
 
-    this.checkAuthentication();
+    
   },
 
   methods: {
@@ -43,22 +43,23 @@ export default {
       this.store.definitiveHouse = this.store.housesHome;
     },
     chooseArray() {
-
-      this.store.definitiveHouse = [];
-
-      if (this.store.searchHouse.length == 0 && this.store.filterHouse.length == 0) {
-        axios.get("http://127.0.0.1:8000/api/houses").then(res => {
+      if (this.store.searchHouse.length == 0 && this.store.filterHouse.length == 0){
+        axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
+          
           this.store.definitiveHouse = res.data.results;
         });
       }
       else if (this.store.searchHouse.length != 0 && this.store.filterHouse.length != 0) {
         this.store.definitiveHouse = [];
-        for (const house of this.store.searchHouse) {
-          const foundHouse = this.store.filterHouse.find(item => item.id === house.id);
+        for (const house of this.store.filterHouse) {
+          const foundHouse = this.store.searchHouse.find(item => item.id === house.id);
           if (foundHouse) {
             this.store.definitiveHouse.push(foundHouse);
           } else {
           }
+        }
+        if(this.store.definitiveHouse.length == 0){
+          this.notFound = true;
         }
         this.store.filterHouse = []
       } else if (this.store.searchHouse.length != 0 && this.store.filterHouse.length == 0) {
@@ -69,6 +70,9 @@ export default {
         this.store.definitiveHouse = this.store.filterHouse
         this.store.filterHouse = []
       }
+      console.log(this.store.definitiveHouse)
+      
+      this.store.definitiveHouse.sort((a, b) => a.distance - b.distance);
     },
     searchApi() {
 
@@ -126,12 +130,18 @@ export default {
       for (let i = 0; i < this.baseSearch.length; i++) {
 
         this.getDistanceFromLatLonInKm(this.baseSearch[i].latitude, this.baseSearch[i].longitude, this.store.searchLat, this.store.searchLong)
+        
+        if(this.store.distanceSearch < this.store.distanceSet){
 
-        if (this.store.distanceSearch < this.store.distanceSet) {
+          this.baseSearch[i].distance = Math.round(this.store.distanceSearch)
+
+          
           this.store.searchHouse.push(this.baseSearch[i]);
+          
         }
       }
-      if (this.store.searchHouse.length == 0) {
+      
+      if(this.store.searchHouse.length == 0){
         this.store.notFoundSearch = true
       } else {
 
@@ -140,52 +150,40 @@ export default {
 
     },
 
-    checkAuthentication() {
-      axios.get("http://127.0.0.1:8000/api/authenticated").then(response => {
-        this.authenticated = response.data.authenticated;
-      }).catch(error => {
-        console.error(error);
-      });
-    },
   },
 }
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid">
-      <router-link class="nav-link active" aria-current="page" :to="{ name: 'home' }" @click="this.resetSearch()">
-        <img class="logo" src="public\logochiaro.png" alt="logo">
-      </router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link class="nav-link active" aria-current="page" :to="{ name: 'home' }"
-              @click="this.resetSearch()">Home</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'search' }" @click="this.resetSearch()"> Ricerca
-              Avanzata</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'AppTwo' }" @click="this.resetSearch()">AppTwo</router-link>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control my_search" type="search" placeholder="Cerca un luogo..." aria-label="Search"
-            v-model="this.store.searchUser">
-          <select class="my_select" v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
-            <option selected value="20">20km</option>
-            <option value="40">40km</option>
-            <option value="100">60km</option>
-          </select>
-          <router-link :to="{ name: 'search' }"><button class="my_btn" type="submit"
-              @click="searchApi()">CERCA</button></router-link>
-        </form>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container-fluid">
+        <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}" @click="this.resetSearch()">
+          <img class="logo" src="public\logo-bool.png" alt="logo">
+        </router-link>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}" @click="this.resetSearch()">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{name: 'search'}" @click="this.resetSearch()"> Ricerca Avanzata</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{name: 'AppTwo'}" @click="this.resetSearch()">AppTwo</router-link>
+            </li> 
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control my_search" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" >
+            <select class="my_select" v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
+              <option selected value="20">20km</option>
+              <option value="40">40km</option>
+              <option value="100">60km</option>
+            </select>
+            <router-link :to="{ name: 'search' }"><button class="my_btn" type="submit" @click="searchApi()">CERCA</button></router-link>
+          </form>
 
         <!-- questa è la sezione del login del nostro front end che deve cambiare per essere uguale al badk end -->
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -209,9 +207,8 @@ export default {
 nav {
   background-color: $primary;
   color: white;
-
-  .logo {
-    width: 100px;
+  .logo{
+    width: 50px;
   }
 
   .my_search {

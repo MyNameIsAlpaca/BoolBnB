@@ -5,6 +5,7 @@ import {store} from '../store.js';
 
 import axios from 'axios';
 
+import SponsoredHouses from '../components/SponsoredHouses.vue';
 import HouseCard from '../components/HouseCard.vue';
 
 
@@ -22,7 +23,8 @@ export default{
 
   components:{
     HouseCard,
-  },  
+    SponsoredHouses
+},  
   
   methods:{
     getHousesHome(){
@@ -42,7 +44,13 @@ export default{
 
 <template>
   <div class="container w-75 mx-auto my-2">
-    <h1 class="w-75 mx-auto mt-5">In evidenza</h1>
+    
+    <h1 class="w-75 mx-auto mt-5">In Evidenza</h1>
+    <hr class="w-75 mx-auto py-2"> 
+    
+    <SponsoredHouses></SponsoredHouses>
+    
+    <h1 class="w-75 mx-auto mt-5">Appartamenti</h1>
     <hr class="w-75 mx-auto py-2"> 
     <div class="d-flex justify-content-between row">
       <div v-for="house in this.store.housesHome" class="col-4 mb-5">
