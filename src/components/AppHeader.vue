@@ -171,9 +171,6 @@ export default {
             <li class="nav-item">
               <router-link class="nav-link" :to="{name: 'search'}" @click="this.resetSearch()"> Ricerca Avanzata</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{name: 'AppTwo'}" @click="this.resetSearch()">AppTwo</router-link>
-            </li> 
           </ul>
           <form class="d-flex" role="search">
             <input class="form-control my_search" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" >
