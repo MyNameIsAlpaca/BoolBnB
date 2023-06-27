@@ -41,9 +41,10 @@ export default{
 </script>
 
 <template>
-  <div class="py-4 px-4">
-    <h1 class="text-start">In evidenza</h1>
-    <div class="w-75 mx-auto d-flex justify-content-between row">
+  <div class="container w-75 mx-auto my-2">
+    <h1 class="w-75 mx-auto mt-5">In evidenza</h1>
+    <hr class="w-75 mx-auto py-2"> 
+    <div class="d-flex justify-content-between row">
       <div v-for="house in this.store.housesHome" class="col-4 mb-5">
         <HouseCard :house="house"></HouseCard>
       </div>
@@ -53,4 +54,9 @@ export default{
 
 <style lang="scss">
   
+@import "../scss/variables";
+
+h1{
+  color: $text;
+}
 </style>

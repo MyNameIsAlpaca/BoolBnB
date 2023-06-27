@@ -141,9 +141,11 @@ export default{
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container-fluid">
-        <a class="navbar-brand">BoolBnB</a>
+        <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}" @click="this.resetSearch()">
+          <img class="logo" src="public\logochiaro.png" alt="logo">
+        </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -160,13 +162,13 @@ export default{
             </li> 
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" >
-            <select  v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
+            <input class="form-control my_search" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" >
+            <select class="my_select" v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
               <option selected value="20">20km</option>
               <option value="40">40km</option>
               <option value="100">60km</option>
             </select>
-            <router-link :to="{ name: 'search' }"><button  class="btn btn-outline-success ms-2" type="submit" @click="searchApi()">Cerca</button></router-link>
+            <router-link :to="{ name: 'search' }"><button class="my_btn" type="submit" @click="searchApi()">CERCA</button></router-link>
           </form>
 
           <!-- questa è la sezione del login del nostro front end che deve cambiare per essere uguale al badk end -->
@@ -187,5 +189,50 @@ export default{
 </template>
 
 <style lang="scss" scoped>
+
+@import "../scss/variables";
+@import "../scss/mixins";
+
+nav{
+  background-color: $primary;
+  color: white;
+  .logo{
+    width: 100px;
+  }
+
+  .my_search{
+    background-color: white;
+    @include border();
+    width: 500px;
+  }
+
+  .my_select{
+    @include border();
+    padding: 0px 10px;
+    margin: 0px 10px;
+    background-color: $accent;
+    color: white;
+  }
+
+  .my_btn{
+    @include border();
+    padding: 10px 30px;
+    background-color: $secondary;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 3px;
+    transition: .3s;
+  }
+
+
+
+
+  .my_btn:hover {
+    background-color: $secondary;
+    box-shadow: 0 0 0 5px white;
+    color: #fff;
+  }
   
+
+}
 </style>

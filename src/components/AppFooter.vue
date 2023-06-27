@@ -18,7 +18,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+
+@import "../scss/variables";
+@import "../scss/mixins";
+
     footer {
         padding-bottom: 20px;
+        background-color: $primary;
     }
 </style>
