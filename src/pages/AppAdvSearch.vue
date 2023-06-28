@@ -10,6 +10,8 @@ export default {
     return {
       store,
       notFound: false,
+      searchBed: 1,
+      searchBath: 1,
     };
   },
   components: {
@@ -34,7 +36,6 @@ export default {
             
             this.chooseArray()
           } else{
-            console.log('ciao')
             this.notFound = true
           }
     
@@ -109,6 +110,7 @@ export default {
   <hr>
   <div id="services" class="my-4">
     <h5 class="text-center">Seleziona un servizio</h5>
+  
     <div class="my_services my-4">
       <div v-for="service in this.store.services">
         <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
@@ -116,10 +118,41 @@ export default {
       </div>
     </div>
 
+    <div class="d-flex justify-content-center w-50 mx-auto gap-3">
+      <div class="d-flex gap-2">
+        <span> Numero di letti: </span>
+        <select aria-label="Default select example" v-model="searchBed" @change="getHouses()">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9+</option>
+        </select>
+      </div>
+      <div class="d-flex gap-2">
+        <span> Numero di bagni: </span>
+        <select aria-label="Default select example" v-model="searchBath" @change="getHouses()">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9+</option>
+        </select>
+      </div>
+
+    </div>
   </div>
   <div class="text-center alert alert-warning" v-show="this.store.notFoundSearch">La tua ricerca non ha prodotto risultati</div>
   <div class="text-center w-75 mx-auto d-flex justify-content-between row">
-    <div v-show="this.store.notFoundSearch == false" v-if="this.notFound == false" v-for="house in this.store.definitiveHouse" class="col-4 mb-5">
+    <div v-for="house in this.store.definitiveHouse" v-show="this.store.notFoundSearch == false && this.searchBed <= house.beds && this.searchBath <= house.bathrooms" v-if="this.notFound == false"  class="col-4 mb-5">
       <ServiceHouses :house="house"></ServiceHouses>
     </div>
     <div v-else>
