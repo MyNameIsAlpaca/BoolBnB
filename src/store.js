@@ -7,6 +7,8 @@ export const store = reactive({
   houses: [],
 
   housesHome: [],
+
+  sponsoredHouses:[],
       
   searchHouse: [],
 

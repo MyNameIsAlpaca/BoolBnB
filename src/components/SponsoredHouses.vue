@@ -45,9 +45,9 @@ export default defineComponent({
   
   methods:{
     getHousesHome(){
-      axios.get("http://127.0.0.1:8000/api/houses").then(res =>{
+      axios.get("http://127.0.0.1:8000/api/sponsoredHouses").then(res =>{
         
-        this.store.housesHome = res.data.results;
+        this.store.sponsoredHouses = res.data.results;
       });
     },
   },
@@ -65,7 +65,7 @@ export default defineComponent({
 
   
     <Carousel v-bind="settings" :breakpoints="breakpoints">
-      <Slide v-for="house in this.store.housesHome" :key="house">
+      <Slide v-for="house in this.store.sponsoredHouses" :key="house">
         <div class="carousel__item">
             <SponsorTemporaneo
              :house="house"></SponsorTemporaneo>
