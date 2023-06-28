@@ -12,16 +12,22 @@ export default {
 
 <template>
   <footer>
-    <div class="footer">
+    <div id="footer">
+      <!-- sinistra -->
       <div class="links">
         <ul class="pt-4">
-          <li><a href="">Lavora con noi</a></li>
-          <li><a href="">About Us</a></li>
-          <li><a href="">Contatti</a></li>
-          <li><a href="">Termini&Servizi</a></li>
+          <li><a href="#">Lavora con noi</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contatti</a></li>
+          <li><a href="#">Termini&Servizi</a></li>
         </ul>
       </div>
-      <img src="public/logochiaro.png" alt="logo">
+      <!-- /sinistra -->
+
+      <!-- destra -->
+      <img class="long_logo" src="public/logochiaro.png" alt="logo">
+      <img class="short_logo" src="public/logo-bool.png" alt="logo">
+      <!-- /destra -->
     </div>
     <div class="text-center">
       <hr>
@@ -38,25 +44,66 @@ export default {
 @import "../scss/mixins";
 
     footer {
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         background-color: $primary;
-      .footer{
+
+      #footer{
         padding: 10px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        li{
-          padding: 5px 0;
+        ul{
+          display: flex;
+          gap: 20px;
         }
 
-        img{
-          width: 250px;
+
+        .long_logo{
+          width: 150px;
+        }
+
+        .short_logo{
+          width: 80px;
+          display: none;
         }
         
         a{
           color: $text;
+          letter-spacing: 1px;
+
+
+          &:hover{
+            text-decoration: underline;
+          }
         }
       }
     }
+
+
+    @media screen and (max-width: 576px) {
+      
+    footer{
+
+      #footer{
+        width: 100%;
+
+
+        ul{
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+        }
+
+        .long_logo{
+          display: none;
+        }
+
+        .short_logo{
+          display: block;
+        }
+      }
+    }
+  }
 </style>

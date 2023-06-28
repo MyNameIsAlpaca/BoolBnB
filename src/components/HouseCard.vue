@@ -30,7 +30,7 @@ export default {
         <img :src="'http://127.0.0.1:8000/storage/' + house.thumbnail"  class="card-img-top" alt="Immagine di copertina">
       </span></p>
     </div>
-    <div class="d-flex flex-column py-2">
+    <div class="d-flex flex-column">
       <strong>{{house.title}}</strong>
       <em>{{ house.street}} , {{house.house_number}} - {{house.city}}</em>
       <div v-if="house.distance != null && house.distance > 0">
@@ -61,13 +61,13 @@ export default {
 
 
 .my_card_container{
-  padding: 20px;
+  // padding: 20px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   width: 350px;
   height: 500px;
-  align-content:space-between;
+  align-items:center;
   justify-content: space-between;
   // @include border();
   // background-color: $primary;
@@ -76,10 +76,10 @@ export default {
 }
 .my_card {
   width: 300px;
-  height: 300px;
+  height: 250px;
   display: flex;
   align-items: flex-start;
-  padding-bottom: 3px;
+  padding-left: 25px;
 
 }
 

@@ -163,8 +163,12 @@ export default {
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+
+        <div class="collapse navbar-collapse my_nav_collapse" id="navbarSupportedContent">
+          <!-- link sinistra -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 my_nav_links">
             <li class="nav-item">
               <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}" @click="this.resetSearch()">Home</router-link>
             </li>
@@ -172,24 +176,31 @@ export default {
               <router-link class="nav-link" :to="{name: 'search'}" @click="this.resetSearch()"> Ricerca Avanzata</router-link>
             </li>
           </ul>
+          <!-- /link sinistra -->
+
+          <!-- centrale -->
           <form class="d-flex" role="search">
             <input class="form-control my_search" type="search" placeholder="Cerca un luogo..." aria-label="Search" v-model="this.store.searchUser" >
-            <select class="my_select" v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
-              <option selected value="20">20km</option>
-              <option value="40">40km</option>
-              <option value="100">60km</option>
-            </select>
-            <router-link :to="{ name: 'search' }"><button class="my_btn" type="submit" @click="searchApi()">CERCA</button></router-link>
+            <div class="buttons_container">
+              <select class="my_select" v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
+                <option selected value="20">20km</option>
+                <option value="40">40km</option>
+                <option value="100">60km</option>
+              </select>
+              <router-link :to="{ name: 'search' }"><button class="my_btn" type="submit" @click="searchApi()">CERCA</button></router-link>
+
+            </div>
           </form>
+          <!-- /centrale -->
 
-        <!-- questa è la sezione del login del nostro front end che deve cambiare per essere uguale al badk end -->
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <!-- qui va un if con se sei loggato allora devi nascondere questi <li> e mostrare il dropdown del backend -->
+          <!-- questa è la sezione del login del nostro front end che deve cambiare per essere uguale al badk end -->
+          <ul id="profile_link" class="navbar-nav mb-2 mb-lg-0">
+            <!-- qui va un if con se sei loggato allora devi nascondere questi <li> e mostrare il dropdown del backend -->
 
-          <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/login/">Il tuo profilo</a>
-          </li>
-        </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/login/">Il tuo profilo</a>
+            </li>
+          </ul>
 
 
       </div>
@@ -208,38 +219,116 @@ nav {
     width: 50px;
   }
 
-  .my_search {
-    background-color: white;
-    @include border();
-    width: 500px;
+  .my_nav_collapse{
+
+    display: flex;
+    justify-content: space-between;
+
+    
+
+    .my_search {
+      background-color: white;
+      @include border();
+      width: 500px;
+    }
+  
+    .buttons_container{
+      .my_select {
+        @include border();
+        padding: 10px 10px;
+        margin: 0px 10px;
+        background-color: $accent;
+        color: white;
+      }
+    
+      .my_btn {
+        @include border();
+        padding: 10px 30px;
+        background-color: $secondary;
+        color: white;
+        font-weight: bold;
+        letter-spacing: 3px;
+        transition: .3s;
+      }
+  
+      
+        .my_btn:hover {
+          background-color: $secondary;
+          box-shadow: 0 0 0 5px white;
+          color: white;
+        }
+    }
   }
 
-  .my_select {
-    @include border();
-    padding: 0px 10px;
-    margin: 0px 10px;
-    background-color: $accent;
-    color: white;
+
+
+
+
+
+}
+
+
+@media screen and (max-width: 992px) {
+      
+  nav{
+  
+    .my_nav_collapse{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .my_search{
+       width: 200px;
+      }
+
+      .my_nav_links{
+        order: 2;
+      }
+
+      
+      form{
+        order: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+  
+      .buttons_container{
+        display: flex;
+        gap: 10px;
+        .my_select{
+          margin: 0;
+        }
+      }
+
+      #profile_link{
+        order: 1;
+        
+      }
+    }
+
+
+    
+
+
+  }
+}
+
+
+@media screen and (max-width: 576px) {
+
+  nav{
+
+    .my_nav_collapse{
+      .my_search{
+        width: 300px;
+      }
+    }
   }
 
-  .my_btn {
-    @include border();
-    padding: 10px 30px;
-    background-color: $secondary;
-    color: $text;
-    font-weight: bold;
-    letter-spacing: 3px;
-    transition: .3s;
-  }
+
+}
 
 
 
-
-  .my_btn:hover {
-    background-color: $secondary;
-    box-shadow: 0 0 0 5px $accent;
-    color: $accent;
-  }
-
-
-}</style>
+</style>

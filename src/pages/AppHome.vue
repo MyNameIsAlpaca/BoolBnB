@@ -43,17 +43,17 @@ export default{
 </script>
 
 <template>
-  <div class="container w-75 mx-auto my-2">
+  <div id="home_container">
     
-    <h1 class="w-75 mx-auto mt-5">In Evidenza</h1>
-    <hr class="w-75 mx-auto py-2"> 
+    <h1>In Evidenza</h1>
+    <hr> 
     
     <SponsoredHouses></SponsoredHouses>
     
-    <h1 class="w-75 mx-auto mt-5">Appartamenti</h1>
-    <hr class="w-75 mx-auto py-2"> 
-    <div class="d-flex justify-content-between row">
-      <div v-for="house in this.store.housesHome" class="col-4 mb-5">
+    <h1>Appartamenti</h1>
+    <hr> 
+    <div id="house_card_container" class="d-flex justify-content-between row">
+      <div v-for="house in this.store.housesHome" class="col-sm-12 col-md-6 col-lg-4 mb-5">
         <HouseCard :house="house"></HouseCard>
       </div>
     </div>
@@ -63,8 +63,37 @@ export default{
 <style lang="scss">
   
 @import "../scss/variables";
+@import "../scss/mixins";
 
-h1{
-  color: $text;
+
+#home_container{
+  max-width: 1200px;
+  margin: 3rem auto;
+
+  h1{
+    color: $text;
+    padding: 1rem 0;
+  }
+
+  hr{
+    padding: 1rem 0; 
+  }
 }
+
+@media screen and (max-width: 992px) {
+ 
+  #home_container{
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+ 
+  #home_container{
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
 </style>
