@@ -6,6 +6,8 @@ export default {
 
     data() {
         return {
+            imageArray: [],
+            imageArrayClean: [],
             responseMessage: '',
              house: {},
              houseId: '',
@@ -26,16 +28,46 @@ export default {
 
           this.houseId = this.$route.params.id;
           this.getHouse();
+          this.getImage();
+          
     },
 
     computed:{
          houseImg(){
 
             return this.imgUrl + 'storage/' + this.house.thumbnail
+
         }
     },
 
     methods: {
+
+        getImage() {
+        axios.get("http://127.0.0.1:8000/api/image", {
+            params: {
+                id: this.houseId
+            }
+        })
+        .then(res => {
+            if(res.data.results.length > 0){
+                this.imageArray = res.data.results
+            }
+            this.getMoreImage();
+        });
+        
+},
+
+        getMoreImage(){
+
+            
+            for (let i = 0; i < this.imageArray.length; i++) {
+                const imagePath = this.imageArray[i].path;
+                const imageName = 'http://127.0.0.1:8000/' + imagePath;
+                
+                this.imageArrayClean.push(imageName);
+            }
+        },
+        
         submitForm(){
             console.log(this.form)
             axios.post('http://127.0.0.1:8000/api/messages', this.form).then(
@@ -95,23 +127,23 @@ export default {
                             </div>
 
                         </div>
-
+                        
                         <div>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#messageModal">
                                 Invia un messaggio
                             </button>
-
+                            
                             <!-- Modal -->
                             <div class="my_modal modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="messageLabel">Invia un messaggio</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="message mx-1">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="messageLabel">Invia un messaggio</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="message mx-1">
                                             <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.responseMessage == ''|| this.responseMessage == 'Fallito'">
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">
@@ -141,15 +173,18 @@ export default {
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                     </div>
-                                    </div>
                                 </div>
                             </div>
-                            
                         </div>
-
-
+                            
                     </div>
+                    
+                    
                 </div>
+                <div v-for="image in imageArrayClean">
+                    <img :src="image" alt="">
+                </div>
+            </div>
                 <!-- <div class="item_show">
                     <img :src="houseImg" alt="img">
                     <span>Servizi: </span>
