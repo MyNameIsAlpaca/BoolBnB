@@ -100,8 +100,8 @@ export default {
 
 <template>
     <div class="my_show">
-        <div v-if="isLoading">
-            <div class="spinner-border text-danger" role="status">
+        <div v-if="isLoading" class="d-flex justify-content-center w-100">
+            <div class="spinner-border my-loader" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
@@ -240,6 +240,10 @@ export default {
 
 @import "../scss/variables";
 @import "../scss/mixins";
+
+.my-loader{
+    color: $accent;
+}
 
 .item_show{
     @include border();

@@ -112,6 +112,7 @@ export default defineComponent({
 
     img{
       aspect-ratio: 16/9;
+      border-radius: 20px;
     }
   }
 }
