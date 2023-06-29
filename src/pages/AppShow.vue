@@ -259,6 +259,8 @@ export default {
             max-width: 400px;
     
             margin: 40px;
+            font-weight: bold;
+
         }
     
         img{
@@ -300,6 +302,39 @@ export default {
                 object-fit: cover;
                 @include border();
             }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .item_show {
+            max-width: 800px;
+            margin: 0 auto;
+            .my_info {
+                padding: 20px;
+                margin: 0;
+                font-weight: bold;
+            }
+        }
+        .other_images {
+            max-width: 800px;
+            margin: 0 auto;
+
+        }
+    }
+    @media screen and (max-width: 576px) {
+        .item_show {
+            max-width: 500px;
+            margin: 0 auto;
+            .my_info {
+                padding: 20px;
+                margin: 0;
+                font-weight: bold;
+            }
+        }
+        .other_images {
+            max-width: 500px;
+            margin: 0 auto;
+
         }
     }
 
