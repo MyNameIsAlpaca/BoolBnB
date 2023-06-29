@@ -149,38 +149,38 @@ export default {
                                             </div>
                                             <div class="modal-body">
                                                 <div class="message mx-1">
-                                                <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.responseMessage == ''|| this.responseMessage == 'Fallito'">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlInput1">
-                                                            Email:
-                                                        </label>
-                                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@mail.com" v-model="form.email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlInput1">
-                                                            Nome:
-                                                        </label>
-                                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Aggiungi un nome" v-model="form.name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1">
-                                                            Messaggio:
-                                                        </label>
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="form.text"></textarea>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-secondary d-flex align-self-center">Invia</button>
-                                                </form>
-                                                <h2 v-else class="text-center alert alert-success">Messaggio inviato con successo!</h2>
-                                                
-                                                <h2 v-show="this.responseMessage == 'Fallito'" class="text-center alert alert-danger mt-3">Invio fallito!</h2>
+                                                    <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.responseMessage == ''|| this.responseMessage == 'Fallito'">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlInput1">
+                                                                Email:
+                                                            </label>
+                                                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@mail.com" v-model="form.email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlInput1">
+                                                                Nome:
+                                                            </label>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Aggiungi un nome" v-model="form.name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1">
+                                                                Messaggio:
+                                                            </label>
+                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="form.text"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-secondary d-flex align-self-center">Invia</button>
+                                                    </form>
+                                                    <h2 v-else class="text-center alert alert-success">Messaggio inviato con successo!</h2>
+                                                    
+                                                    <h2 v-show="this.responseMessage == 'Fallito'" class="text-center alert alert-danger mt-3">Invio fallito!</h2>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 
                             </div>
                         
@@ -192,9 +192,77 @@ export default {
                         <div v-for="image in imageArrayClean" class="single_image">
                             <img :src="image" alt="image">
                         </div>
-    
                     </div>
-                    
+                    <div class="mobile-info">
+                        <h1 class="py-2">{{ house.title }}</h1>
+                            <div class="rooms">
+                                <p>{{ house.description }}</p>
+                                <span>N° stanze: {{ house.rooms}}</span><br>
+                                <span>N° posti letto: {{ house.beds}}</span><br>
+                                <span>N° bagni: {{ house.bathrooms }}</span><br>
+                                <span>Indirizzo:  {{ house.street}} , {{house.house_number}} - {{house.city}}</span>
+    
+                                <div>Servizi: </div>
+                                <div v-for="service in house.services">
+                                    <i :class="service.icon" class="py-2"></i> - {{ service.name }}
+                                </div>
+    
+                            </div>
+                            
+                            <div>
+                                <!-- Button trigger modal -->
+                                <div class="text-center">
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                        Invia un messaggio
+                                    </button>
+
+                                </div>
+                                
+                                <!-- Modal -->
+                                <div class="my_modal modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="messageLabel">Invia un messaggio</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="message mx-1">
+                                                    <form class="d-flex flex-column gap-2" v-on:submit.prevent="submitForm" v-if="this.responseMessage == ''|| this.responseMessage == 'Fallito'">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlInput1">
+                                                                Email:
+                                                            </label>
+                                                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@mail.com" v-model="form.email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlInput1">
+                                                                Nome:
+                                                            </label>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Aggiungi un nome" v-model="form.name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1">
+                                                                Messaggio:
+                                                            </label>
+                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="form.text"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-secondary d-flex align-self-center">Invia</button>
+                                                    </form>
+                                                    <h2 v-else class="text-center alert alert-success">Messaggio inviato con successo!</h2>
+                                                    
+                                                    <h2 v-show="this.responseMessage == 'Fallito'" class="text-center alert alert-danger mt-3">Invio fallito!</h2>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                    </div>
                 </div>
 
                 
@@ -305,6 +373,10 @@ export default {
         }
     }
 
+    .mobile-info {
+        display: none;
+    }
+
     @media screen and (max-width: 992px) {
         .item_show {
             max-width: 800px;
@@ -329,12 +401,36 @@ export default {
                 padding: 20px;
                 margin: 0;
                 font-weight: bold;
+                display: none;
             }
         }
         .other_images {
             max-width: 500px;
             margin: 0 auto;
 
+        }
+        .mobile-info {
+            background-color: $transparent;
+            padding: 20px;
+            @include border();
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            .btn{
+            @include border();
+            margin-top: 10px;
+            background-color: $accent;
+            color: white;
+            padding: 10px 15px;
+
+            &:hover{
+                background-color: darkolivegreen
+            }
+        }
+    
+        .my_modal{
+            @include border();
+        }
         }
     }
 
