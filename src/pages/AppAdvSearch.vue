@@ -110,8 +110,11 @@ export default {
 <template>
   <div class="home_container">
 
-    <h1 class="text-center my-5">Ricerca Avanzata</h1>
-    <hr>
+    <div class="title">
+      <h1 class="text-center my-5">Ricerca Avanzata</h1>
+      <hr>
+    </div>
+
     <div id="services">
       <h5 class="text-center">Seleziona un servizio</h5>
     
@@ -127,7 +130,7 @@ export default {
       </div>
 
       <div class="my_select_services">
-        <div>
+        <div class="service_choose">
           <span> Numero di letti: </span>
           <select aria-label="Default select example" v-model="searchBed" @change="getHouses()">
             <option value="1">1</option>
@@ -141,7 +144,7 @@ export default {
             <option value="9">9+</option>
           </select>
         </div>
-        <div>
+        <div class="service_choose">
           <span> Numero di bagni: </span>
           <select aria-label="Default select example" v-model="searchBath" @change="getHouses()">
             <option value="1">1</option>
@@ -215,16 +218,24 @@ export default {
 
 
 @media screen and (max-width: 576px) {
-  
 
+  .title{
+    display: none;
+  }
+
+  .home_container{
+    padding-top: 30px;
+    max-width: 400px;
+  }
   .my_services{
-    width: 200px;
-    display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+
     .single_service{
 
-      width: calc(100% / 3);
+      width: calc(100% / 7);
       .my_icon{
         display: block;
       }
@@ -233,6 +244,12 @@ export default {
         display: none;
       }
     }
+  }
+
+  .service_choose{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

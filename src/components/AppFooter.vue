@@ -62,11 +62,12 @@ export default {
 
         .long_logo{
           width: 150px;
+          display: none;
         }
 
         .short_logo{
           width: 80px;
-          display: none;
+          display: block;
         }
         
         a{
