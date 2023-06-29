@@ -131,7 +131,7 @@ export default {
 
         this.getDistanceFromLatLonInKm(this.baseSearch[i].latitude, this.baseSearch[i].longitude, this.store.searchLat, this.store.searchLong)
         
-        if(this.store.distanceSearch < this.store.distanceSet){
+        if(this.store.distanceSearch <= this.store.distanceSet){
 
           this.baseSearch[i].distance = Math.round(this.store.distanceSearch)
 
@@ -185,7 +185,7 @@ export default {
               <select class="my_select" v-model="this.store.distanceSet" name="distanceSet" id="distanceSet">
                 <option selected value="20">20km</option>
                 <option value="40">40km</option>
-                <option value="100">60km</option>
+                <option value="60">60km</option>
               </select>
               <router-link :to="{ name: 'search' }"><button class="my_btn" type="submit" @click="searchApi()">CERCA</button></router-link>
 
