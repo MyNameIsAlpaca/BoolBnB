@@ -44,16 +44,11 @@ export default defineComponent({
   },  
   
   methods:{
-    getHousesHome(){
-      axios.get("http://127.0.0.1:8000/api/sponsoredHouses").then(res =>{
-        
-        this.store.sponsoredHouses = res.data.results;
-      });
-    },
+    
   },
 
   created() {
-    this.getHousesHome();
+    
   },
 
 })

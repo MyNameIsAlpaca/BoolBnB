@@ -20,11 +20,45 @@ export default {
 </script>
 
 <template>
-  <AppHeader></AppHeader>
-  <router-view></router-view> 
-  <AppFooter></AppFooter>        
+  <div class="my_body">
+    <div class="my_nav">
+      <AppHeader></AppHeader>
+      
+    </div>
+    <div class="my_main">
+      <router-view></router-view> 
+  
+    </div>
+    <div class="my_footer">
+      <AppFooter></AppFooter>        
+  
+    </div>
+
+  </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+
+.my_body{
+  
+  .my_nav{
+    height: 50px;
+    width: 100%;
+  }
+  
+  .my_main{
+    height: calc(100% - 150px);
+  }
+  
+  .my_footer{
+    height: 100px;
+    width: 100%;
+
+  }
+
+}
+
+
+
 
 </style>

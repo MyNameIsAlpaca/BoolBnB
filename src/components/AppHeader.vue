@@ -166,7 +166,7 @@ export default {
 
 
 
-        <div class="collapse navbar-collapse my_nav_collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- link sinistra -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 my_nav_links">
             <li class="nav-item">
@@ -215,16 +215,11 @@ export default {
 nav {
   background-color: $primary;
   color: white;
+
   .logo{
     width: 50px;
   }
-
-  .my_nav_collapse{
-
-    display: flex;
-    justify-content: space-between;
-
-    
+ 
 
     .my_search {
       background-color: white;
@@ -265,20 +260,16 @@ nav {
 
 
 
-}
+
 
 
 @media screen and (max-width: 992px) {
       
   nav{
-  
-    .my_nav_collapse{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
 
-      .my_search{
-       width: 200px;
+    width: 100vw;
+    .my_search{
+       width: 300px;
       }
 
       .my_nav_links{
@@ -302,11 +293,15 @@ nav {
       }
 
       #profile_link{
-        order: 1;
+        text-align: center;
+        background-color: white;
+        width: 150px;
+        @include border();
+        padding: 5px 10px;
+
+        margin: 10px 0;
         
       }
-    }
-
 
     
 
@@ -319,11 +314,12 @@ nav {
 
   nav{
 
-    .my_nav_collapse{
-      .my_search{
-        width: 300px;
-      }
+    width: 100%;
+    .my_search{
+      width: 300px;
     }
+
+
   }
 
 

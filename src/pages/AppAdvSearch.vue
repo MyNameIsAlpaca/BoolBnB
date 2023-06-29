@@ -18,6 +18,7 @@ export default {
     ServiceHouses
 },
   methods: {
+    
     getHouses(){
       this.notFound = false
 
@@ -100,65 +101,69 @@ export default {
           this.store.definitiveHouse = res.data.results;
         });
     }
+
   }
 
 };
 </script>
 
 <template>
-  <h1 class="text-center my-3">Ricerca Avanzata</h1>
-  <hr>
-  <div id="services" class="my-4">
-    <h5 class="text-center">Seleziona un servizio</h5>
+  <div class="home_container">
+
+    <h1 class="text-center my-5">Ricerca Avanzata</h1>
+    <hr>
+    <div id="services">
+      <h5 class="text-center">Seleziona un servizio</h5>
+    
+      <div class="my_services">
+        <div class="single_service" v-for="service in this.store.services">
+          <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
+          <label class="ps-1" for="vehicle1">{{ service.name }}</label>
+        </div>
+      </div>
+
+      <div class="my_select_services">
+        <div>
+          <span> Numero di letti: </span>
+          <select aria-label="Default select example" v-model="searchBed" @change="getHouses()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9+</option>
+          </select>
+        </div>
+        <div>
+          <span> Numero di bagni: </span>
+          <select aria-label="Default select example" v-model="searchBath" @change="getHouses()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9+</option>
+          </select>
+        </div>
   
-    <div class="my_services my-4">
-      <div v-for="service in this.store.services">
-        <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
-        <label class="ps-1" for="vehicle1">{{ service.name }}</label>
       </div>
     </div>
-
-    <div class="d-flex justify-content-center w-50 mx-auto gap-3">
-      <div class="d-flex gap-2">
-        <span> Numero di letti: </span>
-        <select aria-label="Default select example" v-model="searchBed" @change="getHouses()">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9+</option>
-        </select>
+    <div class="text-center alert alert-warning" v-show="this.store.notFoundSearch">La tua ricerca non ha prodotto risultati</div>
+    <div class="row">
+      <div v-for="house in this.store.definitiveHouse" v-show="this.store.notFoundSearch == false && this.searchBed <= house.beds && this.searchBath <= house.bathrooms" v-if="this.notFound == false" class="col-sm-12 col-md-6 col-lg-4 mb-5">
+        <ServiceHouses :house="house"></ServiceHouses>
       </div>
-      <div class="d-flex gap-2">
-        <span> Numero di bagni: </span>
-        <select aria-label="Default select example" v-model="searchBath" @change="getHouses()">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9+</option>
-        </select>
+      <div v-else>
+        <h4 class="alert alert-danger">Non ci sono case con questi filtri!</h4>
       </div>
-
-    </div>
+    </div> 
   </div>
-  <div class="text-center alert alert-warning" v-show="this.store.notFoundSearch">La tua ricerca non ha prodotto risultati</div>
-  <div class="text-center w-75 mx-auto d-flex justify-content-between row">
-    <div v-for="house in this.store.definitiveHouse" v-show="this.store.notFoundSearch == false && this.searchBed <= house.beds && this.searchBath <= house.bathrooms" v-if="this.notFound == false"  class="col-4 mb-5">
-      <ServiceHouses :house="house"></ServiceHouses>
-    </div>
-    <div v-else>
-      <h4 class="alert alert-danger">Non ci sono case con questi filtri!</h4>
-    </div>
-  </div> 
 </template>
 
 <style scoped lang="scss">
@@ -167,20 +172,39 @@ export default {
 @import "../scss/variables";
 @import "../scss/mixins";
 
+.my_services{
+  margin: 2rem 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 
-  .my_services{
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 10px 10px;
 
+  .single_service{
+    @include border();
+    padding: 8px 10px;
+    background-color: $secondary;
+    color: white;
+  }
+
+  
+}
+
+.my_select_services{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 2rem 0;
+
+  select{
+    border: 2px solid $accent;
     border-radius: 30px;
 
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-
-
-    background-color: $secondary;
-    
+    padding: 10px;
   }
+}
+
+
+
+
 </style>

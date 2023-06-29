@@ -33,5 +33,6 @@ export const store = reactive({
   isSearch: false,
 
   services: [],
-    
+
+  
 });
