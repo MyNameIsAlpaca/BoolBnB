@@ -53,7 +53,7 @@ export default{
   <div class="home_container">
     
     <div v-if="this.store.sponsoredHouses.length == 0">
-      Benvenuto in BoolBnB
+      <h1 class="text-center">Benvenuto in BoolBnB</h1>
     </div>
     <div v-else>
       <div>
@@ -85,6 +85,7 @@ export default{
 .home_container{
   max-width: 1200px;
   margin: 2rem auto;
+  height: 100vh;
 
   h1{
     color: $text;

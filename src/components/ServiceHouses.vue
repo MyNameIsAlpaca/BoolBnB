@@ -84,6 +84,13 @@ export default {
     aspect-ratio: 4/3;
 
     @include border();
+
+    
+    transition: ease-in-out 1s;
+
+    &:hover{
+      transform: scale(1.04);
+    }
   }
 
   .my_show_btn{

@@ -75,6 +75,12 @@ export default {
     aspect-ratio: 4/3;
 
     @include border();
+
+    transition: ease-in-out 1s;
+
+    &:hover{
+      transform: scale(1.04);
+    }
   }
 
   .my_show_btn{
@@ -121,70 +127,5 @@ export default {
 }
 
 
-// .my_card_container{
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: wrap;
-//   width: 300px;
-//   min-height: 450px;
-//   gap: 20px;
-//   align-items:center;
-//   justify-content: space-between;
-// }
-// .my_card {
-//   width: 300px;
-//   height: 250px;
-//   display: flex;
-//   justify-content: center;
-//   // // align-items: flex-start;
-// }
-
-
-// .my_card img{
-//   height: 100%;
-//   object-fit: cover;
-//   @include border();
-// }
-
-// .my_card_container .my_show_btn{
-//   display: flex;
-//   justify-content: center;
-//     .btn {
-//       cursor: pointer;
-//       font-weight: 700;
-//       letter-spacing: 3px;
-//       transition: all .2s;
-//       padding: 10px 20px;
-//       border-radius: 100px;
-//       background: $accent;
-//       color: white;
-//       border: 1px solid transparent;
-//       display: flex;
-//       align-items: center;
-//       font-size: 15px;
-//     }
-
-//     .btn:hover {
-//       background: $secondary;
-//       color: $text;
-//     }
-
-//     .btn > svg {
-//       width: 34px;
-//       margin-left: 10px;
-//       transition: transform .3s ease-in-out;
-//     }
-
-//     .btn:hover svg {
-//       transform: translateX(5px);
-//     }
-
-//     .btn:active {
-//       transform: scale(0.95);
-//     }
-  
-
-// }
 
 </style>

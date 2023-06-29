@@ -118,7 +118,11 @@ export default {
       <div class="my_services">
         <div class="single_service" v-for="service in this.store.services">
           <input type="checkbox" :value="service.id" v-model="store.checkFilter" @change="getHouses()">
-          <label class="ps-1" for="vehicle1">{{ service.name }}</label>
+          <label class="ps-1" for="vehicle1">
+            <i :class="service.icon" class="my_icon"></i>
+            <span class="my_label">{{ service.name }}</span>
+            
+          </label>
         </div>
       </div>
 
@@ -187,6 +191,10 @@ export default {
     color: white;
   }
 
+  .my_icon{
+    display: none;
+  }
+
   
 }
 
@@ -201,6 +209,30 @@ export default {
     border-radius: 30px;
 
     padding: 10px;
+  }
+}
+
+
+
+@media screen and (max-width: 576px) {
+  
+
+  .my_services{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .single_service{
+
+      width: calc(100% / 3);
+      .my_icon{
+        display: block;
+      }
+
+      .my_label{
+        display: none;
+      }
+    }
   }
 }
 

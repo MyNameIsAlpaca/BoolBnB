@@ -213,6 +213,8 @@ export default {
 @import "../scss/mixins";
 
 nav {
+  width: 100%;
+  padding: 5px 10px;
   background-color: $primary;
   color: white;
 

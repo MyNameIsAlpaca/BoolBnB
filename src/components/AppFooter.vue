@@ -46,6 +46,7 @@ export default {
     footer {
         padding-bottom: 10px;
         background-color: $primary;
+       
 
       #footer{
         padding: 10px 20px;
