@@ -23,17 +23,19 @@ export default {
         </ul>
       </div>
       <!-- /sinistra -->
+      <div class="footer-right">
 
+        <img class="long_logo" src="public/logochiaro.png" alt="logo">
+        <img class="short_logo" src="public/logo-bool.png" alt="logo">
+      </div>
       <!-- destra -->
-      <img class="long_logo" src="public/logochiaro.png" alt="logo">
-      <img class="short_logo" src="public/logo-bool.png" alt="logo">
       <!-- /destra -->
     </div>
-    <div class="text-center">
+    <!-- <div class="text-center">
       <hr>
       Made with &hearts; by Team 5;
 
-    </div>
+    </div> -->
   </footer>
 </template>
 
@@ -44,12 +46,13 @@ export default {
 @import "../scss/mixins";
 
     footer {
-        padding-bottom: 10px;
+        height: 80px;
         background-color: $primary;
+        
        
 
-      #footer{
-        padding: 10px 20px;
+        #footer{
+        // padding: 10px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -59,15 +62,19 @@ export default {
           gap: 20px;
         }
 
+        .footer-right {
+          padding-right: 20px;
+          padding-top: 10px;
+          .long_logo{
+            width: 150px;
+            display: none;
+          }
 
-        .long_logo{
-          width: 150px;
-          display: none;
-        }
-
-        .short_logo{
-          width: 80px;
-          display: block;
+          .short_logo{
+            width: 60px;
+            height: 60px;
+            display: block;
+          }
         }
         
         a{
@@ -93,17 +100,20 @@ export default {
 
         ul{
           display: flex;
-          flex-direction: column;
+          // justify-content: space-between;
           gap: 10px;
 
         }
 
-        .long_logo{
-          display: none;
-        }
+        .footer-right {
+          // display: none;
+          .long_logo{
+            display: none;
+          }
 
-        .short_logo{
-          display: block;
+          .short_logo{
+            display: block;
+          }
         }
       }
     }

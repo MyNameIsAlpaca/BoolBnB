@@ -29,10 +29,10 @@ export default {
       <router-view></router-view> 
   
     </div>
-    <div class="my_footer">
+    
       <AppFooter></AppFooter>        
   
-    </div>
+    
 
   </div>
 </template>
@@ -50,11 +50,11 @@ export default {
     height: calc(100% - 150px);
   }
   
-  .my_footer{
-    height: 100px;
-    width: 100%;
+  // .my_footer{
+  //   height: 100px;
+  //   width: 100%;
 
-  }
+  // }
 
 }
 

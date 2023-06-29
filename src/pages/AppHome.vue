@@ -85,7 +85,6 @@ export default{
 .home_container{
   max-width: 1200px;
   margin: 2rem auto;
-  height: 100vh;
 
   h1{
     color: $text;
